@@ -8,9 +8,9 @@ imshow(I);
 title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
-% for you to fill in ??????????
 figure;
-imshow(I);
+grayImage = rgb2gray(I);
+imshow(grayImage);
 title('Step-2: Conversion of input image to greyscale');
 
 % Step-3: Noise removal

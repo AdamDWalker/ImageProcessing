@@ -32,12 +32,7 @@ for row = 2 : size(image, 1) - 1
             end
         end
         sum = sum / 9;
-        image(row, col) = sum;
+        outputImage(row, col) = sum;
         sum = 0;
     end
 end
-
-figure;
-imshow(image);
-title('Hopefully a sharpened image');
-

@@ -2,19 +2,19 @@
 close all;
 
 % Step-1: Load input image
-% I = imread('AssignmentInput.jpg');
-% figure;
-% imshow(I);
-% title('Step-1: Load input image');
+image = imread('AssignmentInput.jpg');
+figure;
+imshow(image);
+title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
 subplot(2, 2, 1);
-grayImage = rgb2gray(I);
+grayImage = rgb2gray(image);
 imshow(grayImage);
-title('Grayscale Input');
+title('Grayscale input');
 subplot(2, 2, 2);
 imhist(grayImage);
-title('Grayscale hist');
+title('Grayscale input hist');
 % Step-3: Noise removal
 
 
@@ -23,8 +23,6 @@ for loopcount = 0 : 1
     for row = 2 : size(grayImage, 1) - 1
         for col = 2 : size(grayImage, 2) - 1      
             for a = row - 1 : row + 1
-                for b = col - 1 : col + 1
-                end
             end
         end
     end
@@ -35,32 +33,40 @@ imshow(grayImage);
 title('Sharpened image');
 subplot(2, 2, 4);
 imhist(grayImage);
-title('Sharpened hist');
+title('Sharpened image hist');
 
 % Step-whatever: Image smoothing
-% image = im2double(grayImage);
-% outputImage = zeros(size(image));
+% smooth = zeros(size(grayImage));
 % 
 % sum = 0;
 % 
 % for loopcount = 0 : 1
-%    for row = 2 : size(image, 1) - 1
-%       for col = 2 : size(image, 2) - 1      
+%    for row = 2 : size(grayImage, 1) - 1
+%       for col = 2 : size(grayImage, 2) - 1      
 %           for a = row - 1 : row + 1
 %               for b = col - 1 : col + 1
 % 
-%                   sum = sum + image(a, b);
+%                   sum = sum + grayImage(a, b);
 % 
 %               end
 %           end
 %           sum = sum / 9;
-%           image(row, col) = sum;
+%           smooth(row, col) = sum;
 %           sum = 0;
 %        end
 %    end
 % end
 % 
-% figure;
-% imshow(image);
-% title('Hopefully a smoothed image');
+% for r1 = 2:size(grayImage -1)
+%     for c1 = 2:size(grayImage -1)
+%         sharp(r1,c1) = grayImage(r1,c1) - smooth(r1,c1);
+%     end
+% end
+% 
+% subplot(1,2,1);
+% imshow(sharp);
+% title('sharp');
+% subplot(1,2,2);
+% imshow(smooth);
+% title('smooth');
 

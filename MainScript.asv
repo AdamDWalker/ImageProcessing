@@ -12,27 +12,77 @@ figure;
 grayImage = rgb2gray(I);
 imshow(grayImage);
 title('Step-2: Conversion of input image to greyscale');
-
+figure;
+imhist(grayImage);
 % Step-3: Noise removal
 
 
-% Step-4: Image Sharpening - Sobel Filter
+% Step-4: Image Sharpening
 image = im2double(grayImage);
 outputImage = zeros(size(image));
 
-sum = 0;
+highest = 0;
+lowest = 0;
+mean = 0;
+threshold = 1;
+for loopcount = 0 : 10
+    for row = 2 : size(image, 1) - 1
+        for col = 2 : size(image, 2) - 1      
+            for a = row - 1 : row + 1
+                for b = col - 1 : col + 1
 
-for row = 2 : size(image, 1) - 1
-    for col = 2 : size(image, 2) - 1      
-        for a = row - 1 : row + 1
-            for b = col - 1 : col + 1
-                
-                sum = sum + image(row, col);
-                
+                  if image(a, b) > highest
+                      highest = image(a, b);
+                  end
+                  
+                  if image(a, b) < lowest
+                      lowest = image(a, b);
+                  end
+                end
             end
+            mean = (highest + lowest) / 9;
+            if (image(row, col) > threshold)
+                image(row, col) = image(row, col) + mean;
+            else
+                image(row, col) = image(row, col) - mean;
+            end      
+            highest = 0;
+            lowest = 0;
+            mean = 0;
         end
-        sum = sum / 9;
-        outputImage(row, col) = sum;
-        sum = 0;
     end
 end
+
+figure;
+imshow(image);
+title('Hopefully a sharpened image');
+figure 
+imhist(image);
+
+% Step-whatever: Image smoothing
+% image = im2double(grayImage);
+% outputImage = zeros(size(image));
+% 
+% sum = 0;
+% 
+% for loopcount = 0 : 1
+%    for row = 2 : size(image, 1) - 1
+%       for col = 2 : size(image, 2) - 1      
+%           for a = row - 1 : row + 1
+%               for b = col - 1 : col + 1
+% 
+%                   sum = sum + image(a, b);
+% 
+%               end
+%           end
+%           sum = sum / 9;
+%           image(row, col) = sum;
+%           sum = 0;
+%        end
+%    end
+% end
+% 
+% figure;
+% imshow(image);
+% title('Hopefully a smoothed image');
+

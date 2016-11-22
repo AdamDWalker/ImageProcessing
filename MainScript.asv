@@ -2,10 +2,10 @@
 close all;
 
 % Step-1: Load input image
-I = imread('AssignmentInput.jpg');
-figure;
-imshow(I);
-title('Step-1: Load input image');
+% I = imread('AssignmentInput.jpg');
+% figure;
+% imshow(I);
+% title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
 figure;
@@ -18,46 +18,22 @@ imhist(grayImage);
 
 
 % Step-4: Image Sharpening
-image = im2double(grayImage);
-outputImage = zeros(size(image));
-
-highest = 0;
-lowest = 0;
-mean = 0;
-threshold = 1;
-for loopcount = 0 : 10
-    for row = 2 : size(image, 1) - 1
-        for col = 2 : size(image, 2) - 1      
+for loopcount = 0 : 1
+    for row = 2 : size(grayImage, 1) - 1
+        for col = 2 : size(grayImage, 2) - 1      
             for a = row - 1 : row + 1
                 for b = col - 1 : col + 1
-
-                  if image(a, b) > highest
-                      highest = image(a, b);
-                  end
-                  
-                  if image(a, b) < lowest
-                      lowest = image(a, b);
-                  end
                 end
             end
-            mean = (highest + lowest) / 9;
-            if (image(row, col) > threshold)
-                image(row, col) = image(row, col) + mean;
-            else
-                image(row, col) = image(row, col) - mean;
-            end      
-            highest = 0;
-            lowest = 0;
-            mean = 0;
         end
     end
 end
 
 figure;
-imshow(image);
+imshow(grayImage);
 title('Hopefully a sharpened image');
 figure 
-imhist(image);
+imhist(grayImage);
 
 % Step-whatever: Image smoothing
 % image = im2double(grayImage);

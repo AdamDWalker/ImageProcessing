@@ -16,28 +16,34 @@ title('Step-2: Conversion of input image to greyscale');
 % Step-3: Noise removal
 
 
-% Step-4: Image Sharpening - Sobel Filter
+% Step-4: Image Sharpening
+
+
+
+% Step-whatever: Image smoothing
 image = im2double(grayImage);
 outputImage = zeros(size(image));
 
 sum = 0;
 
-for row = 2 : size(image, 1) - 1
-    for col = 2 : size(image, 2) - 1      
-        for a = row - 1 : row + 1
-            for b = col - 1 : col + 1
-                
-                sum = sum + image(row, col);
-                
+for loopcount = 0 : 1
+    for row = 2 : size(image, 1) - 1
+        for col = 2 : size(image, 2) - 1      
+            for a = row - 1 : row + 1
+                for b = col - 1 : col + 1
+
+                    sum = sum + image(a, b);
+
+                end
             end
+            sum = sum / 9;
+            image(row, col) = sum;
+            sum = 0;
         end
-        sum = sum / 9;
-        image(row, col) = sum;
-        sum = 0;
     end
 end
 
 figure;
 imshow(image);
-title('Hopefully a sharpened image');
+title('Hopefully a smoothed image');
 

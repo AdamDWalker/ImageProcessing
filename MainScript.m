@@ -43,7 +43,19 @@ subplot(2, 4, 6);
 imhist(sharpImage);
 title('Sharpened image hist');
 
+% Step-5: Binary Image Segmentation 
 
+level = graythresh(sharpImage);
+BW = imbinarize(sharpImage, level);
+figure;
+BW = ~BW;
+imshow(BW);
+
+% bin3 = imbinarize(bin1);
+% bin3 = bwareaopen(bin3, 50);
+% figure;
+% imshow(bin3);
+% title('Binary Image');
 
 % Step-whatever: Image smoothing
 % smooth = zeros(size(grayImage));

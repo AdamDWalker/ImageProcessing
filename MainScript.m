@@ -46,16 +46,30 @@ title('Sharpened image hist');
 % Step-5: Binary Image Segmentation 
 
 level = graythresh(sharpImage);
-BW = imbinarize(sharpImage, level);
+%Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.85
+%for now
+BW = imbinarize(sharpImage, level); 
+BW = bwareaopen(BW, 10);
 figure;
 BW = ~BW;
 imshow(BW);
+title('Binary Image');
 
 % bin3 = imbinarize(bin1);
 % bin3 = bwareaopen(bin3, 50);
 % figure;
 % imshow(bin3);
 % title('Binary Image');
+
+%Step-6: Morphological Processing
+
+se = strel('octagon',3);
+se2 = strel('diamond',1);
+IM1 = imdilate(BW, se);
+IM2 = imerode(IM1, se2);
+figure;
+imshow(IM2);
+title('Dilated');
 
 % Step-whatever: Image smoothing
 % smooth = zeros(size(grayImage));

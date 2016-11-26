@@ -28,13 +28,13 @@ title('Grayscale input hist');
 %     end
 % end
 
-sharpImage = imsharpen(grayImage);
+sharpImage = imshar
 
 subplot(2, 2, 3);
-imshow(sharpImage);
+imshow(grayImage);
 title('Sharpened image');
 subplot(2, 2, 4);
-imhist(sharpImage);
+imhist(grayImage);
 title('Sharpened image hist');
 
 % Step-whatever: Image smoothing

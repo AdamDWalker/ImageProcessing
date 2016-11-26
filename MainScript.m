@@ -8,15 +8,22 @@ imshow(image);
 title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
-subplot(2, 2, 1);
+subplot(2, 4, 1);
 grayImage = rgb2gray(image);
 imshow(grayImage);
 title('Grayscale input');
-subplot(2, 2, 2);
+subplot(2, 4, 2);
 imhist(grayImage);
 title('Grayscale input hist');
 % Step-3: Noise removal
 
+medFiltImage = medfilt2(grayImage);
+subplot(2, 4, 3);
+imshow(medFiltImage);
+title('Noiseless image');
+subplot(2, 4, 4);
+imhist(medFiltImage);
+title('Noiseless image hist');
 
 % Step-4: Image Sharpening
 % for loopcount = 0 : 1
@@ -28,14 +35,15 @@ title('Grayscale input hist');
 %     end
 % end
 
-sharpImage = imsharpen(grayImage);
-
-subplot(2, 2, 3);
+sharpImage = imsharpen(medFiltImage);
+subplot(2, 4, 5);
 imshow(sharpImage);
 title('Sharpened image');
-subplot(2, 2, 4);
+subplot(2, 4, 6);
 imhist(sharpImage);
 title('Sharpened image hist');
+
+
 
 % Step-whatever: Image smoothing
 % smooth = zeros(size(grayImage));

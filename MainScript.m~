@@ -63,11 +63,12 @@ title('Binary Image');
 
 %Step-6: Morphological Processing
 
-se = strel('disk',1);
+se = strel('disk',6);
+se2 = strel('disk',3);
 IM1 = imerode(BW, se);
-IM2 = imerode(IM, se);
+IM2 = imd(IM1, se2);
 figure;
-imshow(IM1);
+imshow(IM2);
 title('Dilated');
 
 % Step-whatever: Image smoothing

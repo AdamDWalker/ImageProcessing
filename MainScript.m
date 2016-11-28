@@ -15,6 +15,7 @@ title('Grayscale input');
 subplot(2, 4, 2);
 imhist(IM2);
 title('Grayscale input hist');
+
 % Step-3: Noise removal
 
 IM3 = medfilt2(IM2);

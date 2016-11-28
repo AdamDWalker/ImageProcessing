@@ -2,27 +2,27 @@
 close all;
 
 % Step-1: Load input image
-image = imread('AssignmentInput.jpg');
+IM = imread('AssignmentInput.jpg');
 figure;
-imshow(image);
+imshow(IM);
 title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
 subplot(2, 4, 1);
-grayImage = rgb2gray(image);
-imshow(grayImage);
+IM2 = rgb2gray(IM);
+imshow(IM2);
 title('Grayscale input');
 subplot(2, 4, 2);
-imhist(grayImage);
+imhist(IM2);
 title('Grayscale input hist');
 % Step-3: Noise removal
 
-medFiltImage = medfilt2(grayImage);
+IM3 = medfilt2(IM2);
 subplot(2, 4, 3);
-imshow(medFiltImage);
+imshow(IM3);
 title('Noiseless image');
 subplot(2, 4, 4);
-imhist(medFiltImage);
+imhist(IM3);
 title('Noiseless image hist');
 
 % Step-4: Image Sharpening
@@ -35,20 +35,20 @@ title('Noiseless image hist');
 %     end
 % end
 
-sharpImage = imsharpen(medFiltImage);
+IM4 = imsharpen(IM3);
 subplot(2, 4, 5);
-imshow(sharpImage);
+imshow(IM4);
 title('Sharpened image');
 subplot(2, 4, 6);
-imhist(sharpImage);
+imhist(IM4);
 title('Sharpened image hist');
 
 % Step-5: Binary Image Segmentation 
 
-level = graythresh(sharpImage);
+level = graythresh(IM4);
 %Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.85
 %for now
-BW = imbinarize(sharpImage, 0.9); 
+BW = imbinarize(IM4, 0.9); 
 %BW = bwareaopen(BW, 10);
 figure;
 BW = ~BW;
@@ -65,10 +65,10 @@ title('Binary Image');
 
 se = strel('disk',2);
 se2 = strel('disk',4);
-IM1 = imerode(BW, se);
-IM2 = imdilate(IM1, se2);
+IM5 = imerode(BW, se);
+IM6 = imdilate(IM5, se2);
 figure;
-imshow(IM2);
+imshow(IM6);
 title('Dilated');
 
 % Step-whatever: Image smoothing

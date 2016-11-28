@@ -49,14 +49,29 @@ for loopcount = 0 : 1
     end
 end
 
+edge = sm1 - sm2;
+
+sharp = sm1 + edge;
+
+figure;
+subplot(1, 3, 1);
+imshow(IM3);
+title('IM2');
+subplot(1, 3, 2);
+imshow(edge);
+title('Edge');
+subplot(1, 3, 3);
+imshow(sharp);
+title('Sharp');
+
 IM4 = imsharpen(IM3);
 figure;
 subplot(1, 2, 1);
-imshow(sm2);
-title('Smooth image');
+imshow(IM4);
+title('Sharp matlab');
 subplot(1, 2, 2);
-imhist(sm2);
-title('Smooth image hist');
+imshow(sharp);
+title('Sharp me');
 
 % Step-5: Binary Image Segmentation 
 

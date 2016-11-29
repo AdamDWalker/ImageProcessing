@@ -3,9 +3,9 @@ close all;
 
 % Step-1: Load input image
 IM = imread('AssignmentInput.jpg');
-figure;
-imshow(IM);
-title('Step-1: Load input image');
+% figure;
+% imshow(IM);
+% title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
 figure;
@@ -33,7 +33,7 @@ sm1 = im2double(IM3);
 sm2 = zeros(size(sm1));
 
 sum = 0;
-for loopcount = 0 : 1
+for loopcount = 0 : 3
     for row = 2 : size(sm1, 1) - 1
         for col = 2 : size(sm1, 2) - 1      
             for a = row - 1 : row + 1
@@ -64,21 +64,23 @@ subplot(1, 3, 3);
 imshow(sharp);
 title('Sharp');
 
-IM4 = imsharpen(IM3);
-figure;
-subplot(1, 2, 1);
-imshow(IM4);
-title('Sharp matlab');
-subplot(1, 2, 2);
-imshow(sharp);
-title('Sharp me');
+%----- This is the matlab code for image sharpening -----%
+% IM4 = imsharpen(IM3);
+% figure;
+% subplot(1, 2, 1);
+% imshow(IM4);
+% title('Sharp matlab');
+% subplot(1, 2, 2);
+% imshow(sharp);
+% title('Sharp me');
 
 % Step-5: Binary Image Segmentation 
 
-level = graythresh(IM4);
+level = graythresh(sharp);
+
 %Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.89
 %for now
-BW = imbinarize(IM4, 0.89); 
+BW = imbinarize(sharp, 0.89); 
 %BW = bwareaopen(BW, 10);
 figure;
 BW = ~BW;

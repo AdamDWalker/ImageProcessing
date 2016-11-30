@@ -35,17 +35,15 @@ for row = 2 : size(IMD, 1) - 1
         noNoise(row, col) = sortedArray(5);
     end
 end
-
 figure;
 imshow(noNoise);
-title('No noise');
+title('Median Filter - My Code');
 
 % ------ Step-3: Noise Removal Matlab Code ------ %
-% IM3 = medfilt2(IM2);
-% figure;
-% subplot(1, 2, 1);
-% imshow(IM3);
-% title('Noiseless image');
+IM3 = medfilt2(IM2);
+figure;
+imshow(IM3);
+title('Median Filter - Matlab Function');
 % subplot(1, 2, 2);
 % imhist(IM3);
 % title('Noiseless image hist');

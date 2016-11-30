@@ -19,15 +19,13 @@ title('Grayscale input hist');
 
 % Step-3: Noise removal
 noNoise = zeros(size(IM2));
-IMD = im2double(IM2);
 count = 1;
-array = zeros(1,9);
-for row = 2 : size(IMD, 1) - 1
-    for col = 2 : size(IMD, 2) - 1      
+array = uint8.empty(0,9);
+for row = 2 : size(IM2, 1) - 1
+    for col = 2 : size(IM2, 2) - 1      
         for a = row - 1 : row + 1
             for b = col - 1 : col + 1
-                array(count) = IMD(a,b);
-                count = count + 1;
+                array(count) = IM2(a,b);
             end
         end
         count = 1;
@@ -35,10 +33,6 @@ for row = 2 : size(IMD, 1) - 1
         noNoise(row, col) = sortedArray(5);
     end
 end
-
-figure;
-imshow(noNoise);
-title('No noise');
 
 % ------ Step-3: Noise Removal Matlab Code ------ %
 IM3 = medfilt2(IM2);

@@ -124,39 +124,3 @@ IM6 = imdilate(IM5, se2);
 figure;
 imshow(IM6);
 title('Dilated');
-
-% Step-whatever: Image smoothing
-% smooth = zeros(size(grayImage));
-% 
-% sum = 0;
-% 
-% for loopcount = 0 : 1
-%    for row = 2 : size(grayImage, 1) - 1
-%       for col = 2 : size(grayImage, 2) - 1      
-%           for a = row - 1 : row + 1
-%               for b = col - 1 : col + 1
-% 
-%                   sum = sum + grayImage(a, b);
-% 
-%               end
-%           end
-%           sum = sum / 9;
-%           smooth(row, col) = sum;
-%           sum = 0;
-%        end
-%    end
-% end
-% 
-% for r1 = 2:size(grayImage -1)
-%     for c1 = 2:size(grayImage -1)
-%         sharp(r1,c1) = grayImage(r1,c1) - smooth(r1,c1);
-%     end
-% end
-% 
-% subplot(1,2,1);
-% imshow(sharp);
-% title('sharp');
-% subplot(1,2,2);
-% imshow(smooth);
-% title('smooth');
-

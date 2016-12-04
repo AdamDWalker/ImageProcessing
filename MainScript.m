@@ -109,9 +109,19 @@ level = graythresh(sharp);
 
 %Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.89
 %for now
-BW = bwareaopen(BW, 10);
-BW = imbinarize(sharp, 0.89); 
+%BW = imbinarize(sharp, 0.89); 
 
+BW = false(size(sharp));
+
+for row = 1 : size(sharp, 1)
+    for col = 1 : size(sharp, 2)
+        if sharp(row, col) > 0.89 % This should be a threshold level calculated elsewhere but it works for now
+            BW(row, col) = true;
+        end
+    end
+end
+
+%BW = bwareaopen(BW, 10);
 figure;
 BW = ~BW;
 imshow(BW);

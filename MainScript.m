@@ -8,8 +8,17 @@ imshow(IM);
 title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
+IM = im2double(IM);
+IM2 = zeros(size(IM,1), size(IM,2));
+
+for row = 1 : size(IM,1)
+    for col = 1 : size(IM,2)        
+        IM2(row, col) = 0.2989 * IM(row, col, 1) + 0.5870 * IM(row, col, 2) + 0.1140 * IM(row, col, 3);
+    end
+end
+
 figure;
-IM2 = rgb2gray(IM);
+%IM2 = rgb2gray(IM);
 imshow(IM2);
 title('Grayscale input');
 
@@ -100,8 +109,9 @@ level = graythresh(sharp);
 
 %Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.89
 %for now
+BW = bwareaopen(BW, 10);
 BW = imbinarize(sharp, 0.89); 
-%BW = bwareaopen(BW, 10);
+
 figure;
 BW = ~BW;
 imshow(BW);
@@ -118,7 +128,8 @@ title('Binary Image');
 se = strel('disk',2);
 se2 = strel('disk',4);
 IM5 = imerode(BW, se);
-IM6 = imdilate(IM5, se2);
+IM6 = bwmorph(IM5, 'majority');
+IM7 = imdilate(IM6, se2);
 figure;
-imshow(IM6);
+imshow(IM7);
 title('Dilated');

@@ -18,9 +18,13 @@ for row = 1 : size(IM,1)
 end
 
 figure;
+subplot(1,2,1);
 %IM2 = rgb2gray(IM);
+imshow(IM);
+title('Coloured input');
+subplot(1,2,2);
 imshow(IM2);
-title('Grayscale input');
+title('Grayscale output');
 
 % ------ Step-3: Noise removal ~ Median Filter ------ % 
 % Converting both the input, and output images to double for consistency
@@ -45,14 +49,18 @@ for row = 2 : size(IMD, 1) - 1
     end
 end
 figure;
+subplot(1,3,1);
+imshow(IM2);
+title('Noisy input');
+subplot(1,3,2);
 imshow(noNoise);
-title('Median Filter - My Code');
+title('Median filter - My Code');
 
 % ------ Step-3: Noise Removal Matlab Code ------ %
 IM3 = medfilt2(IM2);
-figure;
+subplot(1,3,3);
 imshow(IM3);
-title('Median Filter - Matlab Function');
+title('Matlab Medfilt2');
 % subplot(1, 2, 2);
 % imhist(IM3);
 % title('Noiseless image hist');
@@ -115,7 +123,7 @@ BW = false(size(sharp));
 
 for row = 1 : size(sharp, 1)
     for col = 1 : size(sharp, 2)
-        if sharp(row, col) > 0.89 % This should be a threshold level calculated elsewhere but it works for now
+        if sharp(row, col) > 0.92 % This should be a threshold level calculated elsewhere but it works for now
             BW(row, col) = true;
         end
     end
@@ -135,11 +143,12 @@ title('Binary Image');
 
 %Step-6: Morphological Processing
 
-se = strel('disk',2);
-se2 = strel('disk',4);
+se = strel('square',3);
+se2 = strel('disk',1);
 IM5 = imerode(BW, se);
 IM6 = bwmorph(IM5, 'majority');
 IM7 = imdilate(IM6, se2);
+
 figure;
 imshow(IM7);
 title('Dilated');

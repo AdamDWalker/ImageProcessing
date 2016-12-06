@@ -102,7 +102,7 @@ imshow(sharp);
 title('Sharp');
 
 %----- This is the matlab code for image sharpening -----%
-% IM4 = imsharpen(IM3);
+IM4 = imsharpen(IM3);
 % figure;
 % subplot(1, 2, 1);
 % imshow(IM4);
@@ -113,17 +113,17 @@ title('Sharp');
 
 % Step-5: Binary Image Segmentation 
 
-level = graythresh(sharp);
+level = graythresh(IM4);
 
 %Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.89
 %for now
-%BW = imbinarize(sharp, 0.89); 
+%BW = imbinarize(sharp, level); 
 
 BW = false(size(sharp));
 
 for row = 1 : size(sharp, 1)
     for col = 1 : size(sharp, 2)
-        if sharp(row, col) > 0.92 % This should be a threshold level calculated elsewhere but it works for now
+        if sharp(row, col) > 0.935 % This should be a threshold level calculated elsewhere but it works for now
             BW(row, col) = true;
         end
     end
@@ -132,8 +132,12 @@ end
 %BW = bwareaopen(BW, 10);
 figure;
 BW = ~BW;
+subplot(1,2,1);
 imshow(BW);
 title('Binary Image');
+subplot(1,2,2);
+imhist(sharp);
+title('sharp hist');
 
 % bin3 = imbinarize(bin1);
 % bin3 = bwareaopen(bin3, 50);
@@ -143,12 +147,13 @@ title('Binary Image');
 
 %Step-6: Morphological Processing
 
-se = strel('square',3);
-se2 = strel('disk',1);
+se = strel('square',4);
+se2 = strel('disk',2);
 IM5 = imerode(BW, se);
-IM6 = bwmorph(IM5, 'majority');
-IM7 = imdilate(IM6, se2);
+IM6 = imdilate(IM5, se2);
+IM7 = bwareaopen(IM6, 100);
+IM8 = bwmorph(IM7, 'majority');
 
 figure;
-imshow(IM7);
+imshow(IM8);
 title('Dilated');

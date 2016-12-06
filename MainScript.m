@@ -148,10 +148,10 @@ title('sharp hist');
 %Step-6: Morphological Processing
 
 se = strel('square',4);
-se2 = strel('disk',2);
+se2 = strel('disk',3);
 IM5 = imerode(BW, se);
 IM6 = imdilate(IM5, se2);
-IM7 = bwareaopen(IM6, 100);
+IM7 = bwareaopen(IM6, 200);
 
 figure;
 imshow(IM7);

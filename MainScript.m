@@ -152,8 +152,7 @@ se2 = strel('disk',2);
 IM5 = imerode(BW, se);
 IM6 = imdilate(IM5, se2);
 IM7 = bwareaopen(IM6, 100);
-IM8 = bwmorph(IM7, 'majority');
 
 figure;
-imshow(IM8);
+imshow(IM7);
 title('Dilated');

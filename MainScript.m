@@ -70,7 +70,7 @@ sm1 = noNoise;
 sm2 = zeros(size(sm1));
 
 sum = 0;
-for loopcount = 0 : 3
+for loopcount = 0 : 5
     for row = 2 : size(sm1, 1) - 1
         for col = 2 : size(sm1, 2) - 1      
             for a = row - 1 : row + 1
@@ -102,7 +102,7 @@ imshow(sharp);
 title('Sharp');
 
 %----- This is the matlab code for image sharpening -----%
-IM4 = imsharpen(IM3);
+%IM4 = imsharpen(IM3);
 % figure;
 % subplot(1, 2, 1);
 % imshow(IM4);
@@ -113,42 +113,34 @@ IM4 = imsharpen(IM3);
 
 % Step-5: Binary Image Segmentation 
 
-level = graythresh(IM4);
+%level = graythresh(IM4);
 
-%Level is approx 0.82, 0.9 gives more stuff scattered around, I like 0.89
-%for now
-%BW = imbinarize(sharp, level); 
+% This threshold lets more data through into the foreground, which makes
+% allows the morphological processing step to produce better results. Any
+% extra data that gets through is easy to clean up anyway.
+threshold = 0.935;
 
 BW = false(size(sharp));
 
 for row = 1 : size(sharp, 1)
     for col = 1 : size(sharp, 2)
-        if sharp(row, col) > 0.935 % This should be a threshold level calculated elsewhere but it works for now
+        if sharp(row, col) > threshold
             BW(row, col) = true;
         end
     end
 end
 
-%BW = bwareaopen(BW, 10);
-figure;
+% Invert the image such that black is the background
 BW = ~BW;
-subplot(1,2,1);
+
+figure;
 imshow(BW);
 title('Binary Image');
-subplot(1,2,2);
-imhist(sharp);
-title('sharp hist');
-
-% bin3 = imbinarize(bin1);
-% bin3 = bwareaopen(bin3, 50);
-% figure;
-% imshow(bin3);
-% title('Binary Image');
 
 %Step-6: Morphological Processing
 
 se = strel('square',4);
-se2 = strel('disk',3);
+se2 = strel('disk',2);
 IM5 = imerode(BW, se);
 IM6 = imdilate(IM5, se2);
 IM7 = bwareaopen(IM6, 200);

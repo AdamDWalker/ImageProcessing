@@ -160,8 +160,8 @@ perimeter = [S.Perimeter];
 for i = 1 : length(metrics)
     metrics(i) = 4*pi*area(i)/perimeter(i).^2;
 end
-% display(metrics);
-idx = find(( metrics > 0.18)  & (metrics < 0.26));
+display(metrics);
+idx = find(( metrics > 0.21)  & (metrics < 0.26));
 IM9 = ismember(L, idx);
 
 figure;

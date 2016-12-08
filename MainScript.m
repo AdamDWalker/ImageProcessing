@@ -140,7 +140,7 @@ title('Binary Image');
 %Step-6: Morphological Processing
 
 se = strel('square',4);
-se2 = strel('disk',2);
+se2 = strel('disk',3);
 IM5 = imerode(BW, se);
 IM6 = imdilate(IM5, se2);
 IM7 = bwareaopen(IM6, 200);
@@ -155,13 +155,13 @@ IM8 = IM7;
 L = bwlabel(IM8);
 S = regionprops(L, 'Area', 'Perimeter');
 metrics = zeros(1,25);
-
 area = [S.Area];
 perimeter = [S.Perimeter];
 for i = 1 : length(metrics)
     metrics(i) = 4*pi*area(i)/perimeter(i).^2;
 end
-idx = find(( metrics > 0.18)  & (metrics < 0.24));
+% display(metrics);
+idx = find(( metrics > 0.18)  & (metrics < 0.26));
 IM9 = ismember(L, idx);
 
 figure;

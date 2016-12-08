@@ -8,9 +8,11 @@ imshow(IM);
 title('Step-1: Load input image');
 
 % Step-2: Conversion of input image to greyscale
+% Create new 2d matrix for grayscale image
 IM = im2double(IM);
 IM2 = zeros(size(IM,1), size(IM,2));
 
+% Using Y = 0.289*R + 0.5870*G + 0.1140*B to change from RGB to grayscale
 for row = 1 : size(IM,1)
     for col = 1 : size(IM,2)        
         IM2(row, col) = 0.2989 * IM(row, col, 1) + 0.5870 * IM(row, col, 2) + 0.1140 * IM(row, col, 3);
@@ -48,6 +50,7 @@ for row = 2 : size(IMD, 1) - 1
         noNoise(row, col) = sortedArray(5);
     end
 end
+% Compare the noisy imge to my median filtered no noise image
 figure;
 subplot(1,3,1);
 imshow(IM2);
@@ -57,6 +60,7 @@ imshow(noNoise);
 title('Median filter - My Code');
 
 % ------ Step-3: Noise Removal Matlab Code ------ %
+% This is here just to compare against my median filter 
 IM3 = medfilt2(IM2);
 subplot(1,3,3);
 imshow(IM3);
@@ -69,6 +73,8 @@ title('Matlab Medfilt2');
 sm1 = noNoise;
 sm2 = zeros(size(sm1));
 
+% Run through image 5 times with 3x3 kernel. Sum each pixel neighbourhood
+% and apply mean value of neighbourhood to middle pixel for a mean filter
 sum = 0;
 for loopcount = 0 : 5
     for row = 2 : size(sm1, 1) - 1
@@ -86,8 +92,9 @@ for loopcount = 0 : 5
     end
 end
 
+% Subtract smooth from original to make edge image
+% Then add edge to original to enhance edges for sharpening effect
 edge = sm1 - sm2;
-
 sharp = sm1 + edge;
 
 figure;
@@ -143,6 +150,7 @@ se = strel('square',4);
 se2 = strel('disk',3);
 IM5 = imerode(BW, se);
 IM6 = imdilate(IM5, se2);
+% Clear away the extra data and random clusters 
 IM7 = bwareaopen(IM6, 200);
 
 figure;
@@ -160,7 +168,11 @@ perimeter = [S.Perimeter];
 for i = 1 : length(metrics)
     metrics(i) = 4*pi*area(i)/perimeter(i).^2;
 end
+% Show all metric values to inspect them
 display(metrics);
+
+% Find all starfish obejcts based on roundness metric range and move into
+% new image
 idx = find(( metrics > 0.21)  & (metrics < 0.26));
 IM9 = ismember(L, idx);
 
